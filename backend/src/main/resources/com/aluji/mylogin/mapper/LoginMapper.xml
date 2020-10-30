@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aluji.mylogin.mapper.LoginMapper">
+
+
+    <resultMap type="com.aluji.mylogin.entity.User" id="UserMap">
+        <id property="userId" column="user_id"/>
+        <result property="accountName" column="account_name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <insert id="addAccount" parameterType="com.aluji.mylogin.entity.User">
+        insert into account(user_id, account_name, password) values(#{userId}, #{accountName}, #{password});
+    </insert>
+
+    <insert id="insertAutoUserId" useGeneratedKeys="true" keyProperty="id">
+        insert into auto_user_id values();
+    </insert>
+
+    <select id="selectAutoUserId" resultType="int">
+        select id from auto_user_id limit 1;
+    </select>
+
+    <select id="queryUserByAccountName" resultMap="UserMap">
+        select * from account where account_name = #{accountName}
+    </select>
+
+
+</mapper>
